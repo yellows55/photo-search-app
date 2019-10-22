@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Photo Search App</title>
+</head>
+<body>
+  <header>
+    <h1>Royalty-Free Photo Search<h1>
+      <h3>Searching from top photo sites Pixabay and Unsplash is as easy as pressing enter!</h3>
+  </header>
+    <main>
+      <div class ="search-home">
+      <form>
+        <input type="text" onfocus="this.value=''" value="Enter Keywords">
+        <input type="submit" value="Get Results">
+      </form>
+    </div>
+      <div class="search-results hidden">
+        <section class="pixabay-results">
+          <h4>Pixabay Results</h4>
+        </section>
+        <section class="unsplash-results">
+          <h4>Unsplash Results</h4>
+        </section>
+      </div>
+    </main>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
