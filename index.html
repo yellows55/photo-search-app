@@ -4,27 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Vollkorn&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Photo Search App</title>
 </head>
 <body>
   <header>
-    <h1>Royalty-Free Photo Search<h1>
-      <h3>Searching from top photo sites Pixabay and Unsplash is as easy as pressing enter!</h3>
+      <div class = "homepage-image">
+        <div class = "search-intro">
+          <h1>Royalty-Free Photo Search</h1>
+          <h3>Searching from top photo sites Pixabay, Unsplash, and Pexels is as easy as pressing enter!</h3>
+          <form>
+          <label><input type="text" onfocus="this.value=''" value="Enter Keywords"></label>
+          <button type="submit" value="Get Results">Get Results</button>
+          </form>
+        </div>
+      </div>
   </header>
     <main>
-      <div class ="search-home">
-      <form>
-        <input type="text" onfocus="this.value=''" value="Enter Keywords">
-        <input type="submit" value="Get Results">
-      </form>
-    </div>
+      
       <div class="search-results hidden">
+                  <h4>Pixabay Results:</h4>
+
         <section class="pixabay-results">
-          <h4>Pixabay Results</h4>
         </section>
+                  <h4>Pexels Results:</h4>
+
+        <section class="pexels-results">
+        </section>
+                  <h4>Unsplash Results:</h4>
+
         <section class="unsplash-results">
-          <h4>Unsplash Results</h4>
         </section>
       </div>
     </main>
