@@ -5,9 +5,9 @@ $(watchForm);
 $(showNext);
 $(previous);
 
+const pixabayKey = "13911244-3178ff11fe54cf01ae120bf07";
+const unsplashKey = "ee4451ea95ad891e1eba06c26dd7709baf1aa2105db69c6bda9cfabbed9f2c1f";
 let pageNum = 1;
-let pixabayKey = "13911244-3178ff11fe54cf01ae120bf07";
-let unsplashKey = "ee4451ea95ad891e1eba06c26dd7709baf1aa2105db69c6bda9cfabbed9f2c1f";
 
 function getPictures() {
   let pictureKey = $("input[type='text']").val();
@@ -16,7 +16,7 @@ function getPictures() {
   .then(response => response.json())
   .then(responseJson => {
   displayPixabayPics(responseJson);
-});
+  });
   fetch(`https://api.pexels.com/v1/search?query=${pictureKey}+query&per_page=10&page=${pageNum}`, {
     headers: {
       'Authorization': '563492ad6f9170000100000184a39ecf132b4682bc8903481def4aaf'
@@ -25,13 +25,13 @@ function getPictures() {
   .then(response => response.json())
   .then(responseJson => {
     displayPexelsPics(responseJson)
-});
+  });
   fetch (`https://api.unsplash.com/search/photos/?client_id=${unsplashKey}&query=${pictureKey}&page=${pageNum}`)
   .then(response => response.json())
   .then(responseJson => {
   displayUnsplashPics(responseJson);
-});
-if(pageNum === 1) {
+  });
+  if(pageNum === 1) {
     $('.unsplash-results').append(`
   <button type="button" class="next-button">Next Page</button>`);
   }
@@ -97,7 +97,7 @@ function displayPexelsPics(obj) {
     const url = getNestedObject(obj, ['photos', i, 'url']);
     $('.pexels-results').prepend(`
     <div class="image-display">
-    <img src="${imageUrl}"/>
+    <img src="${imageUrl}" alt = "${url}"/>
     <a href="${url}" target="_blank">Pexel Link</a>
     </div>`);
   }
