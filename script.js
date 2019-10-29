@@ -11,12 +11,20 @@ let unsplashKey = "ee4451ea95ad891e1eba06c26dd7709baf1aa2105db69c6bda9cfabbed9f2
 
 function getPictures() {
   let pictureKey = $("input[type='text']").val();
-  console.log(pictureKey);
   $('.search-results.hidden').removeClass('hidden');
   fetch (`https://pixabay.com/api/?key=${pixabayKey}&q=${pictureKey}&image_type=photo&page=${pageNum}&per_page=10`)
   .then(response => response.json())
   .then(responseJson => {
   displayPixabayPics(responseJson);
+});
+  fetch(`https://api.pexels.com/v1/search?query=${pictureKey}+query&per_page=10&page=${pageNum}`, {
+    headers: {
+      'Authorization': '563492ad6f9170000100000184a39ecf132b4682bc8903481def4aaf'
+    },
+  })
+  .then(response => response.json())
+  .then(responseJson => {
+    displayPexelsPics(responseJson)
 });
   fetch (`https://api.unsplash.com/search/photos/?client_id=${unsplashKey}&query=${pictureKey}&page=${pageNum}`)
   .then(response => response.json())
@@ -37,7 +45,9 @@ if(pageNum === 1) {
 function watchForm() {
   $('form').submit(event => {
     event.preventDefault();
-    $('.pixabay-results').empty();  
+    $('header').css('height', '50%');
+    $('.pixabay-results').empty();
+    $('.pexels-results').empty();
     $('.unsplash-results').empty();
     getPictures();
   });
@@ -46,6 +56,7 @@ function watchForm() {
 function nextPage() {
   pageNum++;
   $('.pixabay-results').empty();
+  $('.pexels-results').empty();
   $('.unsplash-results').empty();
   getPictures();
 }
@@ -53,6 +64,7 @@ function nextPage() {
 function prevPage() {
   pageNum--;
   $('.pixabay-results').empty();
+  $('.pexels-results').empty();
   $('.unsplash-results').empty();
   getPictures();
 }
@@ -66,12 +78,10 @@ const getNestedObject = (nestedObj, pathArr) => {
 
 function displayPixabayPics(obj) {
   let picList = obj.hits;
-      //console.log(picList);
   for (let i=0; i < picList.length; i++)  {
     const imageUrl = getNestedObject(obj, ['hits', i, 'previewURL']);
     const alt = getNestedObject(obj, ['hits', i, 'tags']);
     const pageUrl = getNestedObject(obj, ['hits', i, 'pageURL']);
-    //console.log(url);
     $('.pixabay-results').prepend(`
     <div class="image-display">
     <img src="${imageUrl}" alt = "${alt}"/>
@@ -80,10 +90,21 @@ function displayPixabayPics(obj) {
   }
 }
 
+function displayPexelsPics(obj) {
+  let picList = obj.photos;
+  for (let i=0; i < picList.length; i++)  {
+    const imageUrl = getNestedObject(obj, ['photos', i, 'src', 'small']);
+    const url = getNestedObject(obj, ['photos', i, 'url']);
+    $('.pexels-results').prepend(`
+    <div class="image-display">
+    <img src="${imageUrl}"/>
+    <a href="${url}" target="_blank">Pexel Link</a>
+    </div>`);
+  }
+}
+
 function displayUnsplashPics(obj) {
   let picList = obj.results;
-      console.log(picList);
-
   for (let i=0; i < picList.length; i++)  {
     const rawUrl = getNestedObject(obj, ['results', i, 'urls', 'raw']);
     const alt = getNestedObject(obj, ['results', i, 'alt_description']);
@@ -94,9 +115,6 @@ function displayUnsplashPics(obj) {
     <a href="${pageUrl}" target="_blank">Unsplash Link</a>
     </div>`);
   }
-  
-  /*$('.unsplash-results').append(`
-  <button type="button" class="next-button">Next</button>`);*/
 }
 
 function showNext() {
