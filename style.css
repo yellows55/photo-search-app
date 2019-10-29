@@ -38,8 +38,21 @@ h1 {
   margin-top: 10%;
 }
 
+@media screen and (max-width: 560px) {
+  h1 {
+    margin-top: 5%;
+    font-size: 1.5em
+}
+}
+
 h2 {
   font-size: 1.2em;
+}
+
+@media screen and (max-width: 560px) {
+  h2 {
+    font-size: .9em
+}
 }
 
 h3 {
